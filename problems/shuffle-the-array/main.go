@@ -27,7 +27,7 @@ func main() {
 
 // array is always 2n, therefore always divisible by 2.
 // Slice it in half to get x and y
-// CKM: my answer -- passing.
+// CKM: my answer -- passing ~ 49MS.
 func shuffle(nums []int, n int) []int {
 
 	x, y := nums[:n], nums[n:]
@@ -40,7 +40,7 @@ func shuffle(nums []int, n int) []int {
 	return result
 }
 
-/** Most memory efficient answer:
+/** Most memory efficient answer: ~ 42MS
 
 func shuffle(nums []int, n int) []int {
     newNums := make([]int, n*2)

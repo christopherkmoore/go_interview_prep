@@ -16,11 +16,9 @@ type TimeLogger interface {
 }
 
 func New() Timer {
-	t := Timer{
+	return Timer{
 		Start: time.Now(),
 	}
-
-	return t
 }
 
 func (t Timer) LogTimeMS() {
