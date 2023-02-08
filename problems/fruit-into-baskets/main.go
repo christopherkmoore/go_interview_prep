@@ -10,14 +10,14 @@ func main() {
 
 	timer := timer.New()
 
-	input := []int{3, 3, 3, 1, 2, 1, 1}
+	// input := []int{3, 3, 3, 1, 2, 1, 1}
 	// input := []int{0, 1, 2, 2}
 	// input := []int{0, 1, 1}
-	// input := make([]int, 10*10*10*10*10)
+	input := make([]int, 10*10*10*10*10)
 
 	output := totalFruit(input)
-	// answer := 10 * 10 * 10 * 10 * 10
-	answer := 4
+	answer := 10 * 10 * 10 * 10 * 10
+	// answer := 4
 
 	if reflect.DeepEqual(output, answer) {
 		fmt.Println("passing")
@@ -35,7 +35,7 @@ func main() {
 // if counter > 2 trees = 0 counter =0 restart
 // look for highest trees
 
-// post notes:
+// post notes: I guess this is called a sliding window problem?
 // need a runner
 
 // might need a runner
@@ -55,20 +55,13 @@ func totalFruit(fruits []int) int {
 		return 2
 	}
 
-	tree1 := -1
-	tree2 := -1
+	streak, tree1, tree2, breakout := 2, -1, -1, true
 
-	streak := 2
 	longestStreak := 0
 	runner := 0
-	breakout := true
 
-	for i := 0; i < fruitsLength-1; i++ {
+	for i := 0; i < fruitsLength; i++ {
 		runner = i + 1
-
-		if runner >= fruitsLength {
-			return longestStreak
-		}
 
 		if fruits[i] != fruits[runner] {
 			tree1, tree2 = fruits[i], fruits[runner]
@@ -77,11 +70,6 @@ func totalFruit(fruits []int) int {
 		}
 
 		runner++
-
-		if runner >= fruitsLength {
-			return longestStreak
-		}
-
 		for breakout {
 			if runner >= fruitsLength {
 				breakout = false
@@ -103,7 +91,6 @@ func totalFruit(fruits []int) int {
 			}
 
 			runner++
-
 		}
 
 		if streak >= longestStreak {
@@ -115,7 +102,6 @@ func totalFruit(fruits []int) int {
 		if (i + longestStreak) >= fruitsLength {
 			break
 		}
-
 	}
 
 	return longestStreak
