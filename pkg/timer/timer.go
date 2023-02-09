@@ -28,3 +28,11 @@ func (t Timer) LogTimeMS() {
 
 	fmt.Printf("\n Finished execution: %v MS\n", difference)
 }
+
+func (t Timer) LogTimeS() {
+	now := time.Now()
+
+	difference := now.Unix() - t.Start.Unix()
+
+	fmt.Printf("\n Finished execution: %v S\n", difference)
+}

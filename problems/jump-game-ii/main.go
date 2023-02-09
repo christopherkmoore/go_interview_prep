@@ -25,7 +25,7 @@ func main() {
 		fmt.Println("passing")
 	}
 
-	fmt.Println(output)
+	// fmt.Println(output)
 
 	timer.LogTimeMS()
 }
@@ -123,16 +123,28 @@ func main() {
 // }
 
 // Cheater answer with modifications made by me (ripped from js best answer.)
+// take aways:
+// - you can put the break condition straight in the loop
 func jump(nums []int) int {
 	goal, current, next, answer := len(nums)-1, -1, 0, 0
 
 	for i := 0; next < goal; i++ {
+
 		if i > current {
 			answer++
 			current = next
 		}
 
+		fmt.Printf("iteration %v\n", i)
+		fmt.Printf("goal: %v\n", goal)
+		fmt.Printf("current: %v\n", current)
+		fmt.Printf("next: %v\n", next)
+		fmt.Printf("answer: %v\n", answer)
+
 		next = max(next, nums[i]+i)
+
+		fmt.Printf("next: %v\n\n", next)
+
 	}
 
 	return answer
