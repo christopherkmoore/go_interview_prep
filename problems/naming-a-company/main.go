@@ -14,7 +14,7 @@ func main() {
 	// input := []string{"coffee", "donuts", "time", "toffee"}
 	// input := []string{"lack", "back"}
 	// input := []string{"aaa", "baa", "caa", "bbb", "cbb", "dbb"}
-	// input := []string{"bzklqtbdr", "kaqvdlp", "r", "dk"}
+	input := []string{"bzklqtbdr", "kaqvdlp", "r", "dk"}
 	output := distinctNames(input)
 	answer := 12
 
@@ -27,6 +27,8 @@ func main() {
 	timer.LogTimeS()
 }
 
+// Notes
+// CKM: this is passing i think but taking too long. The website doesn't want to spend the $ on lambda processing time I guess...
 func distinctNames(ideas []string) int64 {
 
 	if len(ideas) == 2 {
@@ -39,6 +41,7 @@ func distinctNames(ideas []string) int64 {
 
 	unfiltered := make(map[string]int)
 	counter := make(map[string]int)
+	answer := 0
 	for _, word := range ideas {
 		counter[word] = -1
 	}
@@ -50,16 +53,18 @@ func distinctNames(ideas []string) int64 {
 		for runner < len(ideas) {
 			cut1, cut2 := swapLetters(word, ideas[runner])
 
-			if !containsKeyWithValue(counter, cut1, -1) && !containsKeyWithValue(counter, cut2, -1) {
+			if !containsKey(counter, cut1) && !containsKey(counter, cut2) {
 				new := strings.Join([]string{cut1, cut2}, " ")
 				new2 := strings.Join([]string{cut2, cut1}, " ")
 
 				if !containsKey(unfiltered, new) {
 					unfiltered[new] += 1
+					answer++
 				}
 
 				if !containsKey(unfiltered, new2) {
 					unfiltered[new2] += 1
+					answer++
 				}
 			}
 			runner++
@@ -68,16 +73,18 @@ func distinctNames(ideas []string) int64 {
 		for trailer >= 0 {
 			cut1, cut2 := swapLetters(word, ideas[trailer])
 
-			if !containsKeyWithValue(counter, cut1, -1) && !containsKeyWithValue(counter, cut2, -1) {
+			if !containsKey(counter, cut1) && !containsKey(counter, cut2) {
 				new := strings.Join([]string{cut1, cut2}, " ")
 				new2 := strings.Join([]string{cut2, cut1}, " ")
 
 				if !containsKey(unfiltered, new) {
 					unfiltered[new] += 1
+					answer++
 				}
 
 				if !containsKey(unfiltered, new2) {
 					unfiltered[new2] += 1
+					answer++
 				}
 			}
 			trailer--
@@ -85,7 +92,7 @@ func distinctNames(ideas []string) int64 {
 		}
 	}
 
-	return int64(len(unfiltered))
+	return int64(answer)
 }
 
 func swapLetters(word1, word2 string) (string, string) {
@@ -94,14 +101,6 @@ func swapLetters(word1, word2 string) (string, string) {
 
 func containsKey(lookup map[string]int, key string) bool {
 	if _, ok := lookup[key]; ok {
-		return true
-	}
-
-	return false
-}
-
-func containsKeyWithValue(lookup map[string]int, key string, value int) bool {
-	if val, ok := lookup[key]; ok && val == value {
 		return true
 	}
 
