@@ -28,7 +28,16 @@ func main() {
 }
 
 // Notes
-// CKM: this is passing i think but taking too long. The website doesn't want to spend the $ on lambda processing time I guess...
+// CKM: this is passing i think but taking too long.
+// The website doesn't want to spend the $ on lambda processing time I guess...
+
+// for redo
+// create a map like this
+// c: {"offee"},
+// d: {"onuts"},
+// t: {"ime", "offee"}
+// and count those entries that way you don't need to iterate a bunch
+
 func distinctNames(ideas []string) int64 {
 
 	if len(ideas) == 2 {
